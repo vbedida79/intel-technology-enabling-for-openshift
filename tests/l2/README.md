@@ -59,7 +59,10 @@ $ oc logs intel-dgpu-clinfo-56mh2
   Driver Version                                  22.43.24595.35
   Device OpenCL C Version                         OpenCL C 1.2
   Device OpenCL C all versions                    OpenCL 
-```                                               
+```              
+### Verify Intel® QuickAssit Technology (Intel® QAT) Provisioning   
+Please use the upstream Intel device plugins operator openssl workload mentioned in the [readme](https://github.com/intel/intel-device-plugins-for-kubernetes/blob/v0.27.0/README.md#qat-device-plugin). 
+* Check the results 
 
 ## See Also
 For Intel SGX demos on vanilla Kubernetes, refer to [link](https://github.com/intel/intel-device-plugins-for-kubernetes/tree/main/demo/sgx-sdk-demo) 
