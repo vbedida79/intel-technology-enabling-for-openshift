@@ -1,0 +1,23 @@
+# Copyright (c) 2024 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hl-smi-workload
+  namespace: gaudi-validation
+spec:
+  template:
+    metadata:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: hl-smi-workload
+          image: vault.habana.ai/gaudi-docker/1.18.0/rhel9.4/habanalabs/pytorch-installer-2.4.0:1.18.0-524
+          command:
+            - /bin/bash
+            - '-c'
+            - hl-smi -L | grep SPI
+          resources:
+            limits:
+              habana.ai/gaudi: 8
+          imagePullPolicy: IfNotPresent

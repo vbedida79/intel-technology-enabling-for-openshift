@@ -75,3 +75,18 @@ Welcome to HCCL demo
 [BENCHMARK]     Algo Bandwidth : 147.548069 GB/s
 ####################################################################################################
 ```
+## Check firmware version with hl-smi 
+System Management Interface Tool (hl-smi) utility tool obtains information and monitors data of the Intel Gaudi AI accelerators.
+Run below command to deploy and check for Intel Gaudi firmware version:
+```
+$ oc apply -f https://raw.githubusercontent.com/intel/intel-technology-enabling-for-openshift/main/tests/gaudi/l2/hl-smi-firmware_job.yaml
+```
+
+Verify Output:
+```
+$ oc get pods -n gaudi-validation
+NAME                         READY   STATUS      RESTARTS   AGE
+hl-smi-workload-2-f5qgs      0/1     Completed   0          27m
+```
+```
+$ oc logs hl-smi-workload-2-f5qgs -n gaudi-validation
