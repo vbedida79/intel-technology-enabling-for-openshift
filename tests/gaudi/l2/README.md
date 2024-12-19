@@ -104,6 +104,7 @@ $ oc apply -f https://raw.githubusercontent.com/intel/intel-technology-enabling-
 ```
 meta-llama/Llama-3.1-8B model is used in this deployment and the hugging face token is used to access such gated models.
 * For the PV setup with NFS, refer to [documentation](https://docs.openshift.com/container-platform/4.17/storage/persistent_storage/persistent-storage-nfs.html).
+* The vLLM pod needs to access the host's shared memory for tensor parallel inference, which is mounted as a volume.
 ```
 $ oc apply -f https://raw.githubusercontent.com/intel/intel-technology-enabling-for-openshift/main/tests/gaudi/l2/vllm_deployment.yaml
 ```
@@ -160,7 +161,7 @@ Loading safetensors checkpoint shards: 75% Completed | 3/4 [00:10<00:03, 3.59s/i
 Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:11<00:00, 2.49s/it]
 Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:11<00:00, 2.93s/it]
 ```
-Run inference requests using the service url.
+Use any other pod with curl access, in the gaudi-validation namespace to run below inference requests using the vllm service url.
 ```
 sh-5.1# curl  "http://vllm-workload.gaudi-validation.svc.cluster.local:8000/v1/models"{"object":"list","data":[{"id":"meta-llama/Llama-3.1-8B","object":"model","created":1730317412,"owned_by":"vllm","root":"meta-llama/Llama-3.1-8B","parent":null,"max_model_len":131072,"permission":[{"id":"modelperm-452b2bd990834aa5a9416d083fcc4c9e","object":"model_permission","created":1730317412,"allow_create_engine":false,"allow_sampling":true,"allow_logprobs":true,"allow_search_indices":false,"allow_view":true,"allow_fine_tuning":false,"organization":"*","group":null,"is_blocking":false}]}]}
 ```
